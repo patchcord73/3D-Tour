@@ -17,11 +17,14 @@ body {
   background: linear-gradient(135deg, var(--background-color) 0%, var(--secondary-color) 100%);
   color: var(--text-color);
   overflow: hidden;
+  height: 100vh;
+  height: 100dvh;
 }
 
 #root {
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
 }
 
 select option {
@@ -48,4 +51,13 @@ select option {
   text-overflow: ellipsis;
   z-index: 50;
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .location-label {
+    bottom: 80px;
+    font-size: 12px;
+    padding: 6px 14px;
+    max-width: calc(100% - 120px);
+  }
 }

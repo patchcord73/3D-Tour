@@ -99,3 +99,26 @@
   border-color: rgba(74, 158, 255, 0.8);
   color: #fff;
 }
+
+@media (max-width: 768px) {
+  .auto-tour-controls {
+    top: 12px;
+    right: 12px;
+    gap: 6px;
+  }
+
+  .auto-tour-btn {
+    padding: 8px 11px;
+    font-size: 12px;
+    border-radius: 6px;
+    min-height: 38px;
+  }
+
+  .gyro-toggle {
+    bottom: 16px;
+    right: 16px;
+    width: 46px;
+    height: 46px;
+    font-size: 20px;
+  }
+}

@@ -2,8 +2,12 @@ import { useState } from 'react'
 import './Navigation.css'
 
 function Navigation({ buildings, currentBuilding, currentFloor, currentRoom, onBuildingChange, onFloorChange, onRoomChange, settings }) {
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(() => window.innerWidth < 768)
   const currentFloorData = buildings.find(b => b.id === currentBuilding)?.floors.find(f => f.id === currentFloor)
+
+  const closeOnMobile = () => {
+    if (window.innerWidth < 768) setIsCollapsed(true)
+  }
 
   return (
     <>
@@ -12,8 +16,12 @@ function Navigation({ buildings, currentBuilding, currentFloor, currentRoom, onB
         onClick={() => setIsCollapsed(!isCollapsed)}
         title={isCollapsed ? 'Показать меню' : 'Скрыть меню'}
       >
-        {isCollapsed ? '→' : '←'}
+        {isCollapsed ? '☰' : '✕'}
       </button>
+
+      {!isCollapsed && (
+        <div className="nav-backdrop" onClick={() => setIsCollapsed(true)} />
+      )}
 
       <div className={`navigation ${isCollapsed ? 'collapsed' : ''}`}>
         <div className="nav-header">
@@ -31,7 +39,7 @@ function Navigation({ buildings, currentBuilding, currentFloor, currentRoom, onB
               <button
                 key={building.id}
                 className={currentBuilding === building.id ? 'active' : ''}
-                onClick={() => onBuildingChange(building.id)}
+                onClick={() => { onBuildingChange(building.id); closeOnMobile() }}
               >
                 {building.name}
               </button>
@@ -49,6 +57,7 @@ function Navigation({ buildings, currentBuilding, currentFloor, currentRoom, onB
                 onClick={() => {
                   onFloorChange(floor.id)
                   onRoomChange(null)
+                  closeOnMobile()
                 }}
               >
                 {floor.name}
@@ -63,7 +72,7 @@ function Navigation({ buildings, currentBuilding, currentFloor, currentRoom, onB
             <div className="nav-buttons">
               <button
                 className={currentRoom === null ? 'active' : ''}
-                onClick={() => onRoomChange(null)}
+                onClick={() => { onRoomChange(null); closeOnMobile() }}
               >
                 Коридор
               </button>
@@ -71,7 +80,7 @@ function Navigation({ buildings, currentBuilding, currentFloor, currentRoom, onB
                 <button
                   key={room.id}
                   className={currentRoom === room.id ? 'active' : ''}
-                  onClick={() => onRoomChange(room.id)}
+                  onClick={() => { onRoomChange(room.id); closeOnMobile() }}
                 >
                   {room.name}
                 </button>

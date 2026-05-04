@@ -86,6 +86,7 @@ if $IS_UPDATE; then
 
     log "git pull..."
     cd "$APP_DIR"
+    git config --global --add safe.directory "$APP_DIR" 2>/dev/null || true
     git pull
 
     log "Восстановление рабочих данных..."
