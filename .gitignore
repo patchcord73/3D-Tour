@@ -1,0 +1,20 @@
+node_modules/
+dist/
+
+# Панорамы — большие бинарные файлы, загружаются через админку
+public/panoramas/*
+!public/panoramas/.gitkeep
+
+# Огромный бэкап с base64-панорамами
+public/data.json.backup
+
+# Локальные инструменты
+.claude/
+
+# Логи
+*.log
+npm-debug.log*
+
+# Среда
+.env
+.env.local

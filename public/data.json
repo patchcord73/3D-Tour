@@ -1,0 +1,233 @@
+[
+  {
+    "id": 1,
+    "name": "Корпус 1",
+    "floors": [
+      {
+        "id": 1,
+        "name": "Этаж 1",
+        "panorama": "/panoramas/building1_floor1.jpg",
+        "rooms": [
+          {
+            "id": 1,
+            "name": "Стена памяти",
+            "panorama": "/panoramas/building1_floor1_room1.jpg",
+            "hotspots": [],
+            "infoSpots": [],
+            "hidden": false
+          },
+          {
+            "id": 2,
+            "name": "Аддитивное производство и прототипирование",
+            "panorama": "/panoramas/building1_floor1_room2.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 3,
+            "name": "Монтаж электрооборудования",
+            "panorama": "/panoramas/building1_floor1_room3.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 4,
+            "name": "Работа с композитными материалами",
+            "panorama": "/panoramas/building1_floor1_room4.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 5,
+            "name": "Сварка",
+            "panorama": "/panoramas/building1_floor1_room5.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 6,
+            "name": "Сварка 2",
+            "panorama": "/panoramas/building1_floor1_room6.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 7,
+            "name": "Фрезерная мастерская",
+            "panorama": "/panoramas/building1_floor1_room7.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 8,
+            "name": "Токарная мастерская",
+            "panorama": "/panoramas/building1_floor1_room8.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 9,
+            "name": "Слесарная мастерская",
+            "panorama": "/panoramas/building1_floor1_room9.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 10,
+            "name": "Работа с композитными материалами. Зона финишной обработки",
+            "panorama": "/panoramas/building1_floor1_room10.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 11,
+            "name": "Монтаж электрооборудования 2",
+            "panorama": "/panoramas/building1_floor1_room11.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 12,
+            "name": "Диагностика и ремонт оборудования летательных аппаратов",
+            "panorama": "/panoramas/building1_floor1_room12.jpg",
+            "hidden": false
+          }
+        ],
+        "hotspots": [],
+        "infoSpots": [],
+        "hidden": false
+      },
+      {
+        "id": 2,
+        "name": "Этаж 2",
+        "panorama": "",
+        "rooms": [],
+        "hotspots": [],
+        "infoSpots": [],
+        "hidden": true
+      },
+      {
+        "id": 3,
+        "name": "Этаж 3",
+        "panorama": "/panoramas/building1_floor3.jpg",
+        "rooms": [
+          {
+            "id": 1,
+            "name": "Цифровое моделирование",
+            "panorama": "/panoramas/building1_floor3_room1.jpg",
+            "hotspots": [],
+            "infoSpots": [],
+            "hidden": false
+          },
+          {
+            "id": 2,
+            "name": "Контроль качества деталей",
+            "panorama": "/panoramas/building1_floor3_room2.jpg",
+            "hotspots": [],
+            "infoSpots": [],
+            "hidden": false
+          }
+        ],
+        "hotspots": [],
+        "infoSpots": [],
+        "hidden": false
+      },
+      {
+        "id": 4,
+        "name": "Этаж 4",
+        "panorama": "/panoramas/building1_floor4.jpg",
+        "rooms": [
+          {
+            "id": 1,
+            "name": "Мастерская \"Веб-дизайн и разработка\"",
+            "panorama": "/panoramas/building1_floor4_room1.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 2,
+            "name": "Мастерская \"Программные решения для бизнеса\"",
+            "panorama": "/panoramas/building1_floor4_room2.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 3,
+            "name": "Мастерская \"Разработка мобильных приложений\"",
+            "panorama": "/panoramas/building1_floor4_room3.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          },
+          {
+            "id": 4,
+            "name": "Мастерская \"Разработка компьютерных игр и мультимедийных приложений\"",
+            "panorama": "/panoramas/building1_floor4_room4.jpg",
+            "hidden": false,
+            "hotspots": [],
+            "infoSpots": []
+          }
+        ],
+        "hotspots": [],
+        "infoSpots": [],
+        "hidden": false
+      }
+    ],
+    "hidden": false
+  },
+  {
+    "id": 2,
+    "name": "Корпус 2",
+    "floors": [
+      {
+        "id": 1,
+        "name": "Этаж 1",
+        "panorama": "",
+        "rooms": [],
+        "hotspots": [],
+        "infoSpots": [],
+        "hidden": false
+      },
+      {
+        "id": 2,
+        "name": "Этаж 2",
+        "panorama": "",
+        "rooms": [],
+        "hotspots": [],
+        "infoSpots": [],
+        "hidden": false
+      },
+      {
+        "id": 3,
+        "name": "Этаж 3",
+        "panorama": "",
+        "rooms": [],
+        "hotspots": [],
+        "infoSpots": [],
+        "hidden": false
+      },
+      {
+        "id": 4,
+        "name": "Этаж 4",
+        "panorama": "",
+        "rooms": [],
+        "hotspots": [],
+        "infoSpots": [],
+        "hidden": false
+      }
+    ],
+    "hidden": true
+  }
+]
