@@ -233,7 +233,7 @@ rm -f /etc/nginx/sites-enabled/default
 
 nginx -t && log "Конфиг nginx: OK ✓"
 systemctl enable nginx
-systemctl reload nginx
+systemctl is-active --quiet nginx && systemctl reload nginx || systemctl start nginx
 
 # ─── SSL (Let's Encrypt) ──────────────────────────────────────────────────────
 if [ -n "$DOMAIN" ] && [ "$DOMAIN" != "_" ]; then

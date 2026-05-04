@@ -19,6 +19,8 @@ function Admin() {
   const [activeTab, setActiveTab] = useState('panoramas')
   const [settings, setSettings] = useState(null)
   const [infoSpotMode, setInfoSpotMode] = useState(false)
+  const [optimizing, setOptimizing] = useState(false)
+  const [optimizeResult, setOptimizeResult] = useState(null)
   const viewerRef = useRef(null)
   const pannellumRef = useRef(null)
 
@@ -498,7 +500,7 @@ function Admin() {
         throw new Error('Upload failed')
       }
 
-      const panoramaPath = `/panoramas/${filename}`
+      const { path: panoramaPath } = await response.json()
 
       const updated = buildings.map(b => {
         if (b.id === selectedBuilding) {
@@ -672,6 +674,27 @@ function Admin() {
     alert('Кабинет удален!')
   }
 
+  const handleOptimizePanoramas = async () => {
+    if (!confirm('Конвертировать все JPG/PNG панорамы в WebP? Исходные файлы будут удалены, пути в данных тура обновятся автоматически.')) return
+    setOptimizing(true)
+    setOptimizeResult(null)
+    try {
+      const response = await fetch('/api/optimize-panoramas', { method: 'POST' })
+      const result = await response.json()
+      if (!response.ok) throw new Error(result.error)
+      setOptimizeResult(result)
+      if (result.results.length > 0) {
+        const data = await fetch('/api/data').then(r => r.json())
+        setBuildings(data)
+        window.dispatchEvent(new Event('tourDataUpdated'))
+      }
+    } catch (e) {
+      alert('Ошибка оптимизации: ' + e.message)
+    } finally {
+      setOptimizing(false)
+    }
+  }
+
   const currentFloorData = buildings.find(b => b.id === selectedBuilding)?.floors.find(f => f.id === selectedFloor)
   const currentPanorama = selectedRoom
     ? currentFloorData?.rooms.find(r => r.id === selectedRoom)?.panorama
@@ -733,6 +756,12 @@ function Admin() {
           onClick={() => setActiveTab('customization')}
         >
           Кастомизация
+        </button>
+        <button
+          className={activeTab === 'optimize' ? 'active' : ''}
+          onClick={() => setActiveTab('optimize')}
+        >
+          Оптимизация
         </button>
         <button
           className={activeTab === 'statistics' ? 'active' : ''}
@@ -1047,6 +1076,92 @@ function Admin() {
                   <span>{settings.accentColor}</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'optimize' && (
+        <div className="admin-content">
+          <div className="customization-panel">
+            <h2>Оптимизация панорам</h2>
+
+            <div className="custom-section">
+              <h3>Конвертация в WebP</h3>
+              <p style={{ color: 'rgba(255,255,255,0.7)', marginBottom: '16px', lineHeight: 1.6 }}>
+                WebP даёт на 30–50% меньший размер файла при том же визуальном качестве.<br />
+                Новые панорамы конвертируются автоматически при загрузке.<br />
+                Для старых JPG/PNG — используйте кнопку ниже.
+              </p>
+
+              <button
+                onClick={handleOptimizePanoramas}
+                disabled={optimizing}
+                style={{
+                  padding: '14px 28px',
+                  background: optimizing
+                    ? 'rgba(255,255,255,0.1)'
+                    : 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
+                  border: 'none',
+                  borderRadius: '10px',
+                  color: '#fff',
+                  fontWeight: 700,
+                  fontSize: '15px',
+                  cursor: optimizing ? 'not-allowed' : 'pointer',
+                  transition: 'all 0.3s'
+                }}
+              >
+                {optimizing ? '⏳ Конвертация...' : '⚡ Конвертировать JPG/PNG → WebP'}
+              </button>
+
+              {optimizing && (
+                <p style={{ marginTop: '16px', color: '#38ef7d' }}>
+                  Обработка панорам, это может занять несколько минут...
+                </p>
+              )}
+
+              {optimizeResult && (
+                <div style={{ marginTop: '24px' }}>
+                  {optimizeResult.results.length === 0 ? (
+                    <div style={{ padding: '16px', background: 'rgba(56,239,125,0.1)', borderRadius: '10px', border: '1px solid rgba(56,239,125,0.3)', color: '#38ef7d' }}>
+                      Все панорамы уже в формате WebP
+                    </div>
+                  ) : (
+                    <>
+                      <div style={{ padding: '16px', background: 'rgba(56,239,125,0.1)', borderRadius: '10px', border: '1px solid rgba(56,239,125,0.3)', marginBottom: '16px' }}>
+                        <div style={{ fontSize: '18px', fontWeight: 700, color: '#38ef7d' }}>
+                          Сэкономлено: {(optimizeResult.totalSaved / 1024 / 1024).toFixed(1)} MB
+                        </div>
+                        <div style={{ color: 'rgba(255,255,255,0.7)', marginTop: '4px' }}>
+                          Конвертировано файлов: {optimizeResult.results.length}
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        {optimizeResult.results.map((r, i) => (
+                          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', fontSize: '13px' }}>
+                            <span style={{ color: 'rgba(255,255,255,0.6)' }}>{r.file} → {r.webpFilename}</span>
+                            <span style={{ color: '#38ef7d', fontWeight: 600, whiteSpace: 'nowrap', marginLeft: '16px' }}>
+                              {(r.originalSize / 1024 / 1024).toFixed(1)} MB → {(r.newSize / 1024 / 1024).toFixed(1)} MB
+                              &nbsp;(-{Math.round(r.saved / r.originalSize * 100)}%)
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div className="custom-section">
+              <h3>Как это работает</h3>
+              <ul style={{ color: 'rgba(255,255,255,0.7)', lineHeight: 2, paddingLeft: '20px' }}>
+                <li>Максимальное разрешение: 8192px по ширине</li>
+                <li>Качество WebP: 82% (оптимальный баланс)</li>
+                <li>EXIF-ориентация исправляется автоматически</li>
+                <li>Пути в данных тура обновляются автоматически</li>
+                <li>Исходные JPG/PNG удаляются после конвертации</li>
+              </ul>
             </div>
           </div>
         </div>
